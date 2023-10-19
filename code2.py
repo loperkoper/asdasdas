@@ -53,7 +53,7 @@ class Worker(threading.Thread):
 
 def MainCheck():
     global z, wf
-    target_file = '/content/asdasdas/Rich.txt'
+    target_file = '/content/blockchair_bitcoin_addresses_and_balance_LATEST.tsv'
     Target = _LoadTargetFile(FileName=target_file)
 
     z = 0
