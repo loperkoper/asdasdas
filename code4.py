@@ -40,7 +40,7 @@ def MainCheck(Target):
       wf += 1
 
       # Write found addresses to a file in a single write operation
-      with codecs.open('C:/Users/98933/Desktop/Found1.txt', 'ab') as f:
+      with codecs.open('content/asdasdas/found.txt', 'ab') as f:
         f.writelines(['Compressed Address: {}\n'.format(f[0]),
                       'UnCompressed Address: {}\n'.format(f[1]),
                       'Private Key: {}\n'.format(f[2]),
@@ -127,7 +127,7 @@ def _LoadTargetFile(FileName):
   return {i.strip() for i in open(FileName).readlines()}
 
 if __name__ == '__main__':
-  target_file = 'C:/Users/98933/Desktop/Rich.txt'
+  target_file = '/content/blockchair_bitcoin_addresses_and_balance_LATEST.tsv'
   Target = _LoadTargetFile(FileName=target_file)
 
   worker = Worker(target_file, Target)
