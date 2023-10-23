@@ -58,7 +58,7 @@ def MainCheck(Target):
 
     for f in found:
       wf += 1
-      open('C:/Users/98933/Desktop/found.txt', 'a').write(f'Compressed Address: {f[0]}\n'
+      open('content/asdasdas/found.txt', 'a').write(f'Compressed Address: {f[0]}\n'
                                                               f'UnCompressed Address: {f[1]}\n'
                                                               f'Private Key: {f[2]}\n'
                                                               f'WIF (Compressed): {f[3]}\n'
@@ -127,7 +127,7 @@ def MainCheck(Target):
       
 
 if __name__ == '__main__':
-  target_file = 'C:/Users/98933/Desktop/Rich.txt'
+  target_file = '/content/blockchair_bitcoin_addresses_and_balance_LATEST.tsv'
   Target = _LoadTargetFile(FileName=target_file)
   worker = Worker(target_file, Target)
   MainCheck(Target)
