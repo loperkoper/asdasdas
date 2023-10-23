@@ -6,6 +6,27 @@ import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+def _HexGen(size):
+  key = "".join(random.choices("0123456789abcdef", k=size))
+  return key
+
+
+def _HexToWif(Hex):
+  byteHex = bytes.fromhex(Hex)
+  return bytes_to_wif(byteHex, compressed=True)
+
+
+
+def _WifToAddr(WifCompressed, WifUncompressed):
+  BitCompressed = Key(WifCompressed)
+  BitUnCompressed = Key(WifUncompressed)
+  return BitCompressed.address, BitUnCompressed.address
+    
+
+def _LoadTargetFile(FileName):
+  tgt = [i.strip() for i in open(FileName).readlines()]
+  return set(tgt)
+
 class Worker(threading.Thread):
   def __init__(self, target_file, target_set):
     super().__init__()
@@ -18,15 +39,14 @@ class Worker(threading.Thread):
       Private_Key = _HexGen(64)
       WifCompressed, WifUncompressed = _HexToWif(Hex=Private_Key)
       CompressAddr, UnCompressAddr = _WifToAddr(WifCompressed, WifUncompressed)
-      if CompressAddr in self.target_set or UnCompressAddr in self.target_set:
+      if str(CompressAddr) in self.target_set or str(UnCompressAddr) in self.target_set:
         self.found.append((CompressAddr, UnCompressAddr, Private_Key, WifCompressed, WifUncompressed))
 
   def get_found(self):
     return self.found
 
 def MainCheck(Target):
-  global worker, z, wf
-
+  global z, wf
   z = 0
   wf = 0
   lg = 0
@@ -38,15 +58,11 @@ def MainCheck(Target):
 
     for f in found:
       wf += 1
-
-      # Write found addresses to a file in a single write operation
-      with codecs.open('content/asdasdas/found.txt', 'ab') as f:
-        f.writelines(['Compressed Address: {}\n'.format(f[0]),
-                      'UnCompressed Address: {}\n'.format(f[1]),
-                      'Private Key: {}\n'.format(f[2]),
-                      'WIF (Compressed): {}\n'.format(f[3]),
-                      'WIF (UnCompressed): {}\n'.format(f[4])])
-
+      open('C:/Users/98933/Desktop/found.txt', 'a').write(f'Compressed Address: {f[0]}\n'
+                                                              f'UnCompressed Address: {f[1]}\n'
+                                                              f'Private Key: {f[2]}\n'
+                                                              f'WIF (Compressed): {f[3]}\n'
+                                                              f'WIF (UnCompressed): {f[4]}\n')
       def send_email(sender, receiver, subject, body):
                 """
                 ارسال ایمیل
@@ -105,32 +121,13 @@ def MainCheck(Target):
 
 
 
-
-
-    if z % 1000000 == 0:
-      lg += 1000000
-      print('Generated: {} (SHA-256 - HEX) ...'.format(lg))
-
-def _HexGen(size):
-  return ''.join(random.choices('0123456789abcdef', k=size))
-
-def _HexToWif(Hex):
-  byteHex = bytes.fromhex(Hex)
-  return bytes_to_wif(byteHex, compressed=True), bytes_to_wif(byteHex, compressed=False)
-
-def _WifToAddr(WifCompressed, WifUncompressed):
-  BitCompressed = Key(WifCompressed)
-  BitUnCompressed = Key(WifUncompressed)
-  return BitCompressed.address, BitUnCompressed.address
-
-def _LoadTargetFile(FileName):
-  return {i.strip() for i in open(FileName).readlines()}
+    if int(z % 100000) == 0:
+      lg += 100000
+      print(f"Generated: {lg} (SHA-256 - HEX) ...")
+      
 
 if __name__ == '__main__':
-  target_file = '/content/blockchair_bitcoin_addresses_and_balance_LATEST.tsv'
+  target_file = 'C:/Users/98933/Desktop/Rich.txt'
   Target = _LoadTargetFile(FileName=target_file)
-
   worker = Worker(target_file, Target)
-  worker.start()
-
   MainCheck(Target)
