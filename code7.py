@@ -75,13 +75,13 @@ def MainCheck():
 		lct = time.localtime()
 		if str(CompressAddr) in Targets:
 			wf += 1
-			open('Found.txt', 'a').write(f"Compressed Address: {CompressAddr}\n"
+			open('content/asdasdas/found.txt', 'a').write(f"Compressed Address: {CompressAddr}\n"
 										 f"Private Key: {privatekey}\n"
 										 f"DEC: {int(privatekey, 16)}\n"
 										 f"{'-' * 66}\n")
 		elif str(UncompressAddr) in Targets:
 			wf += 1
-			open('Found.txt', 'a').write(f"Uncompressed Address: {CompressAddr}\n"
+			open('content/asdasdas/found.txt', 'a').write(f"Uncompressed Address: {CompressAddr}\n"
 										 f"Private Key: {privatekey}\n"
 										 f"DEC: {int(privatekey, 16)}\n"
 										 f"{'-' * 66}\n")
