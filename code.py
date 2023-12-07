@@ -33,7 +33,7 @@ def _LoadTargetFile(FileName):
 
 def MainCheck():
     global z, wf
-    target_file = '/content/blockchair_bitcoin_addresses_and_balance_LATEST.tsv'
+    target_file = '/content/Bitcoin_addresses_LATEST.txt'
     Target = _LoadTargetFile(FileName=target_file)
 
     z = 0
