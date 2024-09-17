@@ -33,7 +33,7 @@ def _LoadTargetFile(FileName):
 
 def MainCheck():
     global z, wf
-    target_file = '/content/asdasdas/wallets.py'
+    target_file = '/content/asdasdas/wallets.txt'
     Target = _LoadTargetFile(FileName=target_file)
 
     z = 0
