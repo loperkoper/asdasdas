@@ -69,7 +69,7 @@ def check_key(Target, lock):
 
 # اجرای حلقه اصلی به صورت موازی با تعداد زیاد
 def MainCheck():
-    target_file = '/content/blockchair_bitcoin_addresses_and_balance_LATEST.tsv'
+    target_file = '/content/Bitcoin_addresses_LATEST.txt'
     Target = _LoadTargetFile(target_file)
 
     z = 0
